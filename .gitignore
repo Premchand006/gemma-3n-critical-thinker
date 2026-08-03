@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Secrets
+.env
+.env.*
+
+# Training and evaluation outputs
+outputs/
+checkpoints/
+data/*
+!data/sample_math.jsonl
+wandb/
+results/*
+!results/.gitkeep
+
+# Model weights
+*.safetensors
+*.gguf
+*.bin
+*.pt
+
+# Notebooks and editors
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+# Notebook diffs and merges go through nbdime when it is configured
+# (nbdime config-git --enable); outputs are stripped by the nbstripout hook.
+*.ipynb diff=jupyternotebook merge=jupyternotebook
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.parquet binary
+*.safetensors binary
+*.gguf binary

@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cogtools"
+version = "0.1.0"
+description = "LoRA fine-tuning of Gemma 3n on OpenThoughts3 with Unsloth, a cognitive-tools agent loop, and Lighteval scoring"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+keywords = [
+    "gemma", "gemma-3n", "llm", "reasoning", "fine-tuning", "lora", "qlora", "peft",
+    "unsloth", "trl", "openthoughts", "cognitive-tools", "lighteval", "chain-of-thought",
+]
+authors = [
+    { name = "Sri Krishna V" },
+    { name = "Tarun Patnana" },
+    { name = "L K M Prem Chand Korukonda" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = ["pyyaml>=6.0"]
+
+[project.urls]
+Homepage = "https://github.com/Premchand006/gemma-3n-critical-thinker"
+Repository = "https://github.com/Premchand006/gemma-3n-critical-thinker"
+Issues = "https://github.com/Premchand006/gemma-3n-critical-thinker/issues"
+Changelog = "https://github.com/Premchand006/gemma-3n-critical-thinker/blob/main/CHANGELOG.md"
+"Model (Hugging Face)" = "https://huggingface.co/anhsirk/gemma-3n-critical-thinker"
+
+[project.optional-dependencies]
+# Loose bounds only. Exact pins for Colab are in requirements/train.txt
+# (current) and requirements/train-original.txt (the October 2025 run).
+train = [
+    "unsloth",
+    "unsloth_zoo",
+    "transformers>=4.55.4",
+    "trl>=0.22.2",
+    "datasets>=3.4.1,!=4.0.*",
+    "peft",
+    "accelerate",
+    "bitsandbytes",
+    "huggingface_hub>=0.34.0",
+    "timm",
+]
+eval = [
+    "lighteval",  # version pinned in requirements/eval.txt
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+    "pre-commit>=3.7",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests", "scripts"]
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tool prompts are kept verbatim from the paper, so long lines stay.
+"src/cogtools/tools/prompts.py" = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["cogtools"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"
