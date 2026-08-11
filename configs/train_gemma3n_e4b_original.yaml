@@ -1,0 +1,55 @@
+# Record of the run that produced anhsirk/gemma-3n-critical-thinker (about 2025-10-08,
+# Colab Tesla T4, Unsloth 2025.10.1, transformers 4.55.4, trl 0.22.2).
+# Use with requirements/train-original.txt. Values match cells 4, 7, 11, 22 and 24
+# of the original notebook. Known limits of this run:
+#
+# - max_steps 60 x batch 1 x grad accum 4 = 240 examples seen, out of 2,497 collected
+#   (about 9.6%). The domain mix of those 240 is whatever the seed-42 shuffle produced.
+# - max_seq_length 1024: Unsloth loaded the model with it and TRL's SFTConfig.max_length
+#   defaulted to 1024. OpenThoughts3 assistant turns run to tens of thousands of
+#   characters, so nearly every example was cut off early in the <think> section and the
+#   model never saw the end of a trace or a final answer.
+# - sampling first_n: the first rows of each domain in file order, not a random sample.
+#   The dataset is sorted by domain, so this streams about 1.1M rows before science fills.
+# - quota_rounding floor: int(2500 * ratio) per domain gives 1770 + 520 + 207 = 2,497.
+
+model_name: unsloth/gemma-3n-E4B-it
+max_seq_length: 1024
+load_in_4bit: true
+lora_r: 8
+lora_alpha: 8
+lora_dropout: 0.0
+dataset_name: open-thoughts/OpenThoughts3-1.2M
+total_samples: 2500
+domain_ratios:
+  math: 0.708
+  code: 0.208
+  science: 0.083
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 4
+max_steps: 60
+num_train_epochs: null    # not set in the notebook; max_steps decided the length
+learning_rate: 2.0e-4
+warmup_steps: 5
+seed: 3407
+output_dir: outputs/gemma-3n-critical-thinker
+push_to_hub_repo: null    # the original pushed to anhsirk/gemma-3n-critical-thinker
+
+dataset_split: train
+sampling: first_n
+quota_rounding: floor
+max_stream_rows: null
+max_token_length: null    # no length filter in the original
+shuffle_seed: 42          # Dataset.shuffle(seed=42) after collection
+
+finetune_vision_layers: false
+finetune_language_layers: true
+finetune_attention_modules: true
+finetune_mlp_modules: true
+weight_decay: 0.01
+optim: adamw_8bit
+lr_scheduler_type: linear
+logging_steps: 1
+save_steps: null
+report_to: none
+hub_private: true

@@ -1,0 +1,41 @@
+# Package versions of the original run (about 2025-10-08, Colab Tesla T4).
+# Use with configs/train_gemma3n_e4b_original.yaml.
+#
+# Printed by the run: unsloth 2025.10.1, transformers 4.55.4, torch 2.8.0+cu126,
+# triton 3.4.0, xformers 0.0.32.post2. trl 0.22.2 and the datasets range come from the
+# install cell. timm was installed unpinned; 1.0.20 is inferred from release dates
+# (1.0.21 came out 2025-10-24). peft, bitsandbytes and accelerate were not printed and
+# are left unpinned here.
+#
+# These pins are only valid on torch 2.8.0. If the Colab image ships another torch,
+# install torch==2.8.0 (cu126) first. That these pins still install on the current
+# Colab image has not been checked.
+#
+# The original notebook installed with --no-deps, in this order:
+#   pip install --no-deps bitsandbytes accelerate xformers==0.0.32.post2 peft trl triton \
+#       cut_cross_entropy unsloth_zoo==2025.10.1
+#   pip install sentencepiece protobuf "datasets>=3.4.1,<4.0.0" "huggingface_hub>=0.34.0"
+#   pip install --no-deps unsloth==2025.10.1
+#   pip install transformers==4.55.4
+#   pip install --no-deps trl==0.22.2
+#   pip install --no-deps --upgrade timm   (unpinned; pinned to 1.0.20 below)
+# The notebook did not pin unsloth or unsloth_zoo either; the versions above are the
+# ones the run printed.
+
+torch==2.8.0
+unsloth==2025.10.1
+unsloth_zoo==2025.10.1
+transformers==4.55.4
+trl==0.22.2
+xformers==0.0.32.post2
+datasets>=3.4.1,<4.0.0
+huggingface_hub>=0.34.0
+timm==1.0.20
+peft
+accelerate
+bitsandbytes
+triton
+cut_cross_entropy
+sentencepiece
+protobuf
+pyyaml
