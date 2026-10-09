@@ -1,0 +1,8 @@
+{"id": "sample-01", "question": "What is 17 * 23?", "answer": "391"}
+{"id": "sample-02", "question": "Solve for x: 3x + 7 = 25.", "answer": "6"}
+{"id": "sample-03", "question": "What is the greatest common divisor of 84 and 126?", "answer": "42"}
+{"id": "sample-04", "question": "What is the sum of the first 20 positive integers?", "answer": "210"}
+{"id": "sample-05", "question": "Simplify 6/8 + 1/4 and give the result as a fraction in lowest terms.", "answer": "1"}
+{"id": "sample-06", "question": "A rectangle has perimeter 30 and length 9. What is its area?", "answer": "54"}
+{"id": "sample-07", "question": "What is the remainder when 2^10 is divided by 7?", "answer": "2"}
+{"id": "sample-08", "question": "What is the probability of getting exactly two heads in three fair coin flips? Give a fraction.", "answer": "\\frac{3}{8}"}
