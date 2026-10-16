@@ -1,0 +1,26 @@
+# Domain -> task specs, used by scripts/summarize_results.py.
+# Specs must match the ones in configs/eval_tasks.yaml.
+# A task can appear in more than one domain; the overall mean counts it once.
+
+math:
+  - leaderboard|gsm8k|5
+  - lighteval|math:algebra@k=1|4
+  - lighteval|math:geometry@k=1|4
+  - lighteval|math:number_theory@k=1|4
+  - lighteval|math:prealgebra@k=1|4
+
+science:
+  - leaderboard|arc:challenge|25
+  - leaderboard|mmlu:high_school_chemistry|5
+  - leaderboard|mmlu:high_school_physics|5
+  - leaderboard|mmlu:college_mathematics|5
+
+general:
+  - leaderboard|mmlu|5
+  - leaderboard|hellaswag|10
+  - leaderboard|truthfulqa:mc|0
+  - leaderboard|winogrande|5
+
+# HumanEval and MBPP are not available in lighteval 0.11. Kept empty so the
+# summary lists the domain and says why it has no score.
+code: []

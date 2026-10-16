@@ -1,0 +1,21 @@
+# Lighteval scoring of the base model plus the LoRA adapter (Colab T4).
+# Install: pip install -r requirements/eval.txt
+#
+# torch is not pinned. Use the version Colab ships (lighteval 0.11.0 needs torch>=2.0,<3.0).
+#
+# lighteval 0.11.0 keeps the suite|task|fewshot spec format and the log-likelihood
+# leaderboard versions of MMLU and HellaSwag. 0.12 and later change the spec format.
+# The [math] extra adds latex2sympy2_extended for the math normalizers.
+lighteval[math]==0.11.0
+
+# 4.57.0 maps gemma3n in AutoModelForCausalLM. Do not move to transformers 5.x
+# without testing; lighteval 0.11.0 sets no upper bound.
+transformers==4.57.0
+
+# Installed directly, not through lighteval extras. lighteval[adapters] pins
+# peft==0.3.0, which cannot load current LoRA adapters.
+bitsandbytes>=0.45
+peft>=0.15
+accelerate
+
+pyyaml>=6.0

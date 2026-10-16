@@ -1,0 +1,40 @@
+# Lighteval run config. Fields match cogtools.config.EvalConfig.
+# Run: python scripts/evaluate.py --config configs/eval_tasks.yaml
+#
+# Task specs use the lighteval 0.11.0 format suite|task|fewshot.
+# Domain grouping for the summary table is in configs/eval_domains.yaml.
+
+model: google/gemma-3n-E4B-it
+adapter: anhsirk/gemma-3n-critical-thinker   # set to null (or pass --adapter none) for the base model
+
+# Per-task cap. Scores from a capped run are partial and not comparable to
+# published full-set numbers. Set to null for full test sets (slow on a T4).
+max_samples: 100
+batch_size: 1
+load_in_4bit: true
+output_dir: results
+
+tasks:
+  # Math
+  - leaderboard|gsm8k|5
+  # MATH subsets. In lighteval 0.11.0 these tasks carry maj@k with k=4, which
+  # needs 4 samples and fails with the default temperature=0. The @k=1 suffix
+  # sets k=1 on that metric so a single greedy generation is enough.
+  # This override was read from the lighteval source and has not been run.
+  # If the registry rejects these specs, remove the four lines and rerun.
+  - lighteval|math:algebra@k=1|4
+  - lighteval|math:geometry@k=1|4
+  - lighteval|math:number_theory@k=1|4
+  - lighteval|math:prealgebra@k=1|4
+  # Science
+  - leaderboard|arc:challenge|25
+  - leaderboard|mmlu:high_school_chemistry|5
+  - leaderboard|mmlu:high_school_physics|5
+  - leaderboard|mmlu:college_mathematics|5
+  # General
+  - leaderboard|mmlu|5
+  - leaderboard|hellaswag|10
+  - leaderboard|truthfulqa:mc|0
+  - leaderboard|winogrande|5
+  # Code: HumanEval and MBPP have no task config in lighteval 0.11.0, so the
+  # code domain is left out of this run.
