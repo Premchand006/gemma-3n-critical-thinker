@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it with the metadata below."
+title: "Gemma 3n Critical Thinker: LoRA reasoning fine-tune of Gemma 3n with a cognitive-tools agent loop"
+type: software
+version: 0.1.0
+date-released: "2026-11-17"
+license: Apache-2.0
+repository-code: "https://github.com/Premchand006/gemma-3n-critical-thinker"
+keywords:
+  - gemma-3n
+  - lora
+  - unsloth
+  - openthoughts
+  - cognitive-tools
+  - lighteval
+authors:
+  - given-names: Sri Krishna
+    family-names: V
+    affiliation: "Amrita Vishwa Vidyapeetham, Coimbatore"
+  - given-names: Tarun
+    family-names: Patnana
+    affiliation: "Amrita Vishwa Vidyapeetham, Coimbatore"
+  - given-names: "L K M Prem Chand"
+    family-names: Korukonda
+    affiliation: "Amrita Vishwa Vidyapeetham, Coimbatore"
+references:
+  - type: article
+    title: "Eliciting Reasoning in Language Models with Cognitive Tools"
+    authors:
+      - family-names: Ebouky
+        given-names: Brown
+      - family-names: Bartezzaghi
+        given-names: Andrea
+      - family-names: Rigotti
+        given-names: Mattia
+    year: 2025
+    identifiers:
+      - type: doi
+        value: 10.48550/arXiv.2506.12115
+  - type: article
+    title: "OpenThoughts: Data Recipes for Reasoning Models"
+    authors:
+      - family-names: Guha
+        given-names: Etash
+      - name: "OpenThoughts team"
+    year: 2025
+    identifiers:
+      - type: doi
+        value: 10.48550/arXiv.2506.04178
