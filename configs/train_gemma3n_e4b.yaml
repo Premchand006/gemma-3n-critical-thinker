@@ -1,0 +1,58 @@
+# UNTESTED. Recommended settings for a new run; this config has not been run yet.
+# Use with requirements/train.txt. Differences from train_gemma3n_e4b_original.yaml:
+#
+# - sampling random: seeded stream shuffle plus reservoir sampling per domain, in place
+#   of the first rows of each domain in file order.
+# - max_seq_length 8192 with max_token_length 8192: rows longer than 8192 tokens are
+#   skipped, so the kept examples are trained on in full, with the end of the trace and
+#   the final answer. Probed OpenThoughts3 assistant turns were 33k-72k characters, so
+#   most rows are longer than 8192 tokens and the filter will skip most of them. The pass
+#   rate has not been measured; scripts/prepare_data.py prints the rows it found.
+#   Whether 8192 tokens fits in a Colab T4 (14.7 GB) has not been measured either. If it
+#   runs out of memory, lower both values together (for example to 4096).
+# - num_train_epochs 1 with max_steps null: one pass over all 2,500 rows
+#   (625 optimiser steps at batch 1 x grad accum 4).
+# - quota_rounding largest_remainder: quotas sum to exactly total_samples.
+
+model_name: unsloth/gemma-3n-E4B-it
+max_seq_length: 8192
+load_in_4bit: true
+lora_r: 8
+lora_alpha: 8
+lora_dropout: 0.0
+dataset_name: open-thoughts/OpenThoughts3-1.2M
+total_samples: 2500
+domain_ratios:            # 850k / 250k / 100k rows in the full dataset
+  math: 0.7083333333
+  code: 0.2083333333
+  science: 0.0833333334
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 4
+max_steps: null
+num_train_epochs: 1.0
+learning_rate: 2.0e-4
+warmup_steps: 10
+seed: 3407
+output_dir: outputs/gemma-3n-e4b-openthoughts3-lora
+push_to_hub_repo: null    # set to "<user>/<repo>" and export HF_TOKEN to push
+
+dataset_split: train
+sampling: random
+quota_rounding: largest_remainder
+stream_shuffle_buffer: 10000
+pool_factor: 4            # stop once each domain has had 4x its quota of eligible rows
+max_stream_rows: 400000   # upper bound on rows read, in case the length filter keeps few
+max_token_length: 8192
+shuffle_seed: 42
+
+finetune_vision_layers: false
+finetune_language_layers: true
+finetune_attention_modules: true
+finetune_mlp_modules: true
+weight_decay: 0.01
+optim: adamw_8bit
+lr_scheduler_type: linear
+logging_steps: 10
+save_steps: 200
+report_to: none
+hub_private: true

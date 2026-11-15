@@ -1,0 +1,30 @@
+# Current training stack, following the install cell of Unsloth's
+# Gemma3N_(4B)-Conversational notebook as of 2026-11. Use with
+# configs/train_gemma3n_e4b.yaml.
+#
+# unsloth 2026.11.5 was the latest release on 2026-11-17. A Gemma 3n training run
+# with these versions has not been done in this repo yet.
+# unsloth requires unsloth_zoo >= its own version, so keep the two pins equal.
+#
+# The notebook installs with --no-deps, in this order:
+#   pip install sentencepiece protobuf "datasets==4.3.0" "huggingface_hub>=0.34.0"
+#   pip install --no-deps unsloth_zoo==2026.11.5 bitsandbytes accelerate peft trl triton \
+#       unsloth==2026.11.5
+#   pip install transformers==4.57.6
+#   pip install --no-deps trl==0.22.2
+#   pip install --no-deps --upgrade timm   # needed for Gemma 3n
+
+unsloth==2026.11.5
+unsloth_zoo==2026.11.5
+transformers==4.57.6
+trl==0.22.2
+datasets==4.3.0
+huggingface_hub>=0.34.0
+timm==1.0.31
+peft
+accelerate
+bitsandbytes
+triton
+sentencepiece
+protobuf
+pyyaml
